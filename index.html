@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ElectroMart CCC</title>
+  <meta name="description" content="Cash conversion cycle calculator for the ElectroMart working capital case">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="theme-color" content="#1f6feb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="ElectroMart CCC">
+</head>
+<body>
+  <header>
+    <h1>ElectroMart CCC</h1>
+    <p class="sub">How long a dollar is tied up in operations, before and after the working capital changes</p>
+  </header>
+
+  <main>
+    <p id="status" class="status">Loading data…</p>
+
+    <section aria-labelledby="days-h">
+      <h2 id="days-h">Cash conversion cycle</h2>
+      <table id="days-table">
+        <thead>
+          <tr><th scope="col">Measure</th><th scope="col">Before</th><th scope="col">After</th><th scope="col">Change</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p class="note" id="days-note"></p>
+    </section>
+
+    <section aria-labelledby="cash-h">
+      <h2 id="cash-h">Cash freed by each lever</h2>
+      <table id="cash-table">
+        <thead>
+          <tr><th scope="col">Lever</th><th scope="col">Balance Before</th><th scope="col">Balance After</th><th scope="col">Cash freed</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p class="note">A drop in inventory or receivables frees cash. A rise in accounts payable frees cash, because suppliers are financing more of the business.</p>
+      <p class="note" id="check-note"></p>
+    </section>
+
+    <section aria-labelledby="levers-h">
+      <h2 id="levers-h">Levers</h2>
+      <p class="note top">Move a slider or type a number of days. Revenue and COGS stay at their Before values.</p>
+
+      <div class="buttons">
+        <button type="button" id="set-before">Set to Before</button>
+        <button type="button" id="set-after">Set to After</button>
+      </div>
+
+      <div class="lever">
+        <label for="dio-range">DIO (inventory days)</label>
+        <div class="lever-row">
+          <input type="range" id="dio-range" min="0" max="120" step="any">
+          <input type="number" id="dio-num" min="0" step="any" inputmode="decimal" aria-label="DIO in days">
+        </div>
+      </div>
+      <div class="lever">
+        <label for="dso-range">DSO (collection days)</label>
+        <div class="lever-row">
+          <input type="range" id="dso-range" min="0" max="120" step="any">
+          <input type="number" id="dso-num" min="0" step="any" inputmode="decimal" aria-label="DSO in days">
+        </div>
+      </div>
+      <div class="lever">
+        <label for="dpo-range">DPO (payment days)</label>
+        <div class="lever-row">
+          <input type="range" id="dpo-range" min="0" max="120" step="any">
+          <input type="number" id="dpo-num" min="0" step="any" inputmode="decimal" aria-label="DPO in days">
+        </div>
+      </div>
+
+      <table id="lever-table">
+        <thead>
+          <tr><th scope="col">Result</th><th scope="col">Before</th><th scope="col">Levers</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p class="note" id="lever-note"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>All numbers come from data/electromart.csv and data/assumptions.csv. Nothing leaves your device.</p>
+  </footer>
+
+  <script src="ccc.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
