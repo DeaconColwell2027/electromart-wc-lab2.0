@@ -76,6 +76,45 @@ td.bad { color: var(--bad); }
 .status { color: var(--muted); }
 .status.error { color: var(--bad); }
 
+.note.top { margin: 0 0 12px; }
+tr.group td {
+  padding-top: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.buttons { display: flex; gap: 8px; margin-bottom: 14px; }
+.buttons button {
+  flex: 1;
+  padding: 10px 8px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.buttons button:active { background: var(--accent); color: var(--card); }
+
+.lever { margin-bottom: 14px; }
+.lever label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; }
+.lever-row { display: flex; align-items: center; gap: 10px; }
+.lever-row input[type="range"] { flex: 1; min-width: 0; accent-color: var(--accent); }
+.lever-row input[type="number"] {
+  width: 5.5em;
+  padding: 6px;
+  font: inherit;
+  text-align: right;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
 footer { color: var(--muted); font-size: 0.8rem; padding-bottom: 24px; }
 
 @media (max-width: 420px) {

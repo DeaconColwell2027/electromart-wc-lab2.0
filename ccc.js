@@ -119,9 +119,58 @@
     };
   }
 
+  // ---- Levers ----
+  // Revenue and COGS are held at their Before values.
+
+  // The balances a set of days implies: days x annual COGS (or revenue) / days in year.
+  function impliedBalances(leverDays, revenue, cogs, daysInYear) {
+    return {
+      inventory: leverDays.dio * cogs / daysInYear,
+      accounts_receivable: leverDays.dso * revenue / daysInYear,
+      accounts_payable: leverDays.dpo * cogs / daysInYear,
+    };
+  }
+
+  // Interest saved each year if the freed cash pays down the bank line.
+  // Only the bank line's Before balance can be paid down. If cash freed is
+  // negative, ElectroMart borrows more, so the saving is negative.
+  function interestSaved(cashFreedTotal, bankBalanceBefore, bankRate) {
+    return Math.min(cashFreedTotal, bankBalanceBefore) * bankRate;
+  }
+
+  // Days paid after the net due date, never less than zero.
+  function daysPastDue(dpoDays, netDays) {
+    return Math.max(0, dpoDays - netDays);
+  }
+
+  // Nominal annual cost of skipping the supplier discount:
+  // d / (1 - d) x days in year / (days paid - discount days).
+  // Returns null if DPO is within the discount period (ElectroMart takes the discount).
+  function discountCost(dpoDays, discount, discountDays, daysInYear) {
+    if (dpoDays <= discountDays) return null;
+    return discount / (1 - discount) * daysInYear / (dpoDays - discountDays);
+  }
+
+  // Everything the lever panel shows, for one set of days.
+  function leverResults(before, assumptions, leverDays) {
+    const n = assumptions.days_in_year;
+    const bal = impliedBalances(leverDays, before.revenue, before.cogs, n);
+    const freed = cashFreed(before, bal);
+    return {
+      days: Object.assign({}, leverDays, { ccc: ccc(leverDays.dio, leverDays.dso, leverDays.dpo) }),
+      balances: bal,
+      cashFreed: freed,
+      interestSaved: interestSaved(freed.total, before.notes_payable, assumptions.bank_rate),
+      daysPastDue: daysPastDue(leverDays.dpo, assumptions.net_days),
+      discountCost: discountCost(leverDays.dpo, assumptions.supplier_discount,
+        assumptions.discount_days, n),
+    };
+  }
+
   const api = {
     parseCSV, statementsFromRows, assumptionsFromRows,
     dio, dso, dpo, ccc, dayCounts, cashFreed, cashFreedFromDays, analyze,
+    impliedBalances, interestSaved, daysPastDue, discountCost, leverResults,
   };
 
   if (typeof module !== "undefined" && module.exports) module.exports = api;

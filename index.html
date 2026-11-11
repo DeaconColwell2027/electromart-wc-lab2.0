@@ -39,6 +39,46 @@
       <p class="note">A drop in inventory or receivables frees cash. A rise in accounts payable frees cash, because suppliers are financing more of the business.</p>
       <p class="note" id="check-note"></p>
     </section>
+
+    <section aria-labelledby="levers-h">
+      <h2 id="levers-h">Levers</h2>
+      <p class="note top">Move a slider or type a number of days. Revenue and COGS stay at their Before values.</p>
+
+      <div class="buttons">
+        <button type="button" id="set-before">Set to Before</button>
+        <button type="button" id="set-after">Set to After</button>
+      </div>
+
+      <div class="lever">
+        <label for="dio-range">DIO (inventory days)</label>
+        <div class="lever-row">
+          <input type="range" id="dio-range" min="0" max="120" step="any">
+          <input type="number" id="dio-num" min="0" step="any" inputmode="decimal" aria-label="DIO in days">
+        </div>
+      </div>
+      <div class="lever">
+        <label for="dso-range">DSO (collection days)</label>
+        <div class="lever-row">
+          <input type="range" id="dso-range" min="0" max="120" step="any">
+          <input type="number" id="dso-num" min="0" step="any" inputmode="decimal" aria-label="DSO in days">
+        </div>
+      </div>
+      <div class="lever">
+        <label for="dpo-range">DPO (payment days)</label>
+        <div class="lever-row">
+          <input type="range" id="dpo-range" min="0" max="120" step="any">
+          <input type="number" id="dpo-num" min="0" step="any" inputmode="decimal" aria-label="DPO in days">
+        </div>
+      </div>
+
+      <table id="lever-table">
+        <thead>
+          <tr><th scope="col">Result</th><th scope="col">Before</th><th scope="col">Levers</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p class="note" id="lever-note"></p>
+    </section>
   </main>
 
   <footer>
